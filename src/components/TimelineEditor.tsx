@@ -26,6 +26,13 @@ function ratio(value: number, durationMs: number) {
   return `${(clampNumber(value, 0, durationMs) / Math.max(durationMs, 1)) * 100}%`
 }
 
+function compactLabel(milliseconds: number) {
+  const totalSeconds = Math.floor(milliseconds / 1000)
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+  return minutes > 0 ? `${minutes}:${String(seconds).padStart(2, '0')}` : `${seconds}s`
+}
+
 export function TimelineEditor({
   currentTimeMs,
   durationMs,
@@ -78,6 +85,15 @@ export function TimelineEditor({
   }, [dragTarget, durationMs, onSeek, onSelectionChange, selection])
 
   const selectionWidth = selection.endMs - selection.startMs
+  const rulerTicks = Array.from({ length: 9 }, (_, index) => {
+    const tickRatio = index / 8
+    const tickTimeMs = Math.round(durationMs * tickRatio)
+    return {
+      label: compactLabel(tickTimeMs),
+      left: `${tickRatio * 100}%`,
+      strong: index % 2 === 0,
+    }
+  })
 
   return (
     <section className="timeline-panel">
@@ -90,6 +106,18 @@ export function TimelineEditor({
           <span>IN {formatTimecode(selection.startMs)}</span>
           <span>NOW {formatTimecode(currentTimeMs)}</span>
           <span>OUT {formatTimecode(selection.endMs)}</span>
+        </div>
+      </div>
+
+      <div className="timeline-pill-row">
+        <div className="timeline-pill timeline-pill-start" style={{ left: ratio(selection.startMs, durationMs) }}>
+          {compactLabel(selection.startMs)}
+        </div>
+        <div className="timeline-pill timeline-pill-now" style={{ left: ratio(currentTimeMs, durationMs) }}>
+          {compactLabel(currentTimeMs)}
+        </div>
+        <div className="timeline-pill timeline-pill-end" style={{ left: ratio(selection.endMs, durationMs) }}>
+          {compactLabel(selection.endMs)}
         </div>
       </div>
 
@@ -137,6 +165,18 @@ export function TimelineEditor({
             type="button"
           />
         </div>
+      </div>
+
+      <div className="timeline-ruler" aria-hidden="true">
+        {rulerTicks.map((tick) => (
+          <div
+            key={tick.left}
+            className={tick.strong ? 'timeline-ruler-tick strong' : 'timeline-ruler-tick'}
+            style={{ left: tick.left }}
+          >
+            <span>{tick.label}</span>
+          </div>
+        ))}
       </div>
     </section>
   )
