@@ -2,6 +2,12 @@
 
 Windows-first YouTube clip extraction with a browser UI and a background tray host.
 
+![Version](https://img.shields.io/badge/version-2.0-0ea5e9?style=flat-square)
+![Stack](https://img.shields.io/badge/stack-Tauri_2_%2B_React_19-0f172a?style=flat-square)
+![Engine](https://img.shields.io/badge/media-yt--dlp_%2B_ffmpeg-16a34a?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-Windows--first-475569?style=flat-square)
+![Mode](https://img.shields.io/badge/ui-browser_hosted-f97316?style=flat-square)
+
 Watermelon 2 analyzes a YouTube video, loads a playable preview, lets you mark exact `IN` and `OUT` points, and exports the selected range as `MP4`, `MP3`, or `GIF`. The interface runs in your default browser while a lightweight Tauri host stays in the Windows notification area.
 
 ## Highlights
@@ -49,6 +55,20 @@ This design keeps the UI lightweight while still allowing local filesystem acces
 7. Track progress from Downloads and the queue
 
 ## Screens
+
+### Home
+
+![Watermelon 2 Home](Doc/stitch_watermelon/home_video_info_export_settings.png)
+
+### Downloads
+
+![Watermelon 2 Downloads](Doc/stitch_watermelon/downloads_with_search_bar.png)
+
+### Settings
+
+![Watermelon 2 Settings Download](Doc/stitch_watermelon/settings_download.png)
+
+![Watermelon 2 Settings Performance](Doc/stitch_watermelon/settings_performance.png)
 
 - `Home`
   - URL analysis

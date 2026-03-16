@@ -223,11 +223,7 @@ export function useAppModel() {
   }
 
   const pickDownloadDirectory = async () => {
-    const nextPath = await pickDownloadDirectoryRequest()
-    if (nextPath) {
-      setSettings((current) => ({ ...current, downloadDirectory: nextPath }))
-    }
-    return nextPath
+    return pickDownloadDirectoryRequest()
   }
 
   const clearCache = async () => {
