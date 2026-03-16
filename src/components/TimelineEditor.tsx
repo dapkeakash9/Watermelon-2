@@ -93,10 +93,17 @@ export function TimelineEditor({
         </div>
       </div>
 
-      <div className="timeline-track" ref={trackRef}>
+      <div
+        className={dragTarget ? 'timeline-track is-dragging' : 'timeline-track'}
+        ref={trackRef}
+      >
         <button
           aria-label="Seek playhead"
-          className="timeline-playhead-hitbox"
+          className={
+            dragTarget === 'playhead'
+              ? 'timeline-playhead-hitbox active'
+              : 'timeline-playhead-hitbox'
+          }
           onPointerDown={() => setDragTarget('playhead')}
           style={{ left: ratio(currentTimeMs, durationMs) }}
           type="button"
@@ -111,13 +118,21 @@ export function TimelineEditor({
         >
           <button
             aria-label="Move clip start"
-            className="timeline-handle"
+            className={
+              dragTarget === 'start'
+                ? 'timeline-handle timeline-handle-start active'
+                : 'timeline-handle timeline-handle-start'
+            }
             onPointerDown={() => setDragTarget('start')}
             type="button"
           />
           <button
             aria-label="Move clip end"
-            className="timeline-handle"
+            className={
+              dragTarget === 'end'
+                ? 'timeline-handle timeline-handle-end active'
+                : 'timeline-handle timeline-handle-end'
+            }
             onPointerDown={() => setDragTarget('end')}
             type="button"
           />
