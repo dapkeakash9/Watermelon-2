@@ -58,17 +58,15 @@ This design keeps the UI lightweight while still allowing local filesystem acces
 
 ### Home
 
-![Watermelon 2 Home](Doc/stitch_watermelon/home_video_info_export_settings.png)
+![Watermelon 2 Home](Doc/Screens/Home.png)
 
 ### Downloads
 
-![Watermelon 2 Downloads](Doc/stitch_watermelon/downloads_with_search_bar.png)
+![Watermelon 2 Downloads](Doc/Screens/Download.png)
 
 ### Settings
 
-![Watermelon 2 Settings Download](Doc/stitch_watermelon/settings_download.png)
-
-![Watermelon 2 Settings Performance](Doc/stitch_watermelon/settings_performance.png)
+![Watermelon 2 Settings](Doc/Screens/Setting.png)
 
 - `Home`
   - URL analysis
