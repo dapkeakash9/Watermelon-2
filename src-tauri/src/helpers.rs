@@ -86,6 +86,10 @@ pub fn sanitize_filename_stem(value: &str) -> String {
 }
 
 pub fn resolve_command_path(command: &str) -> Result<String, String> {
+  if let Some(bundled) = resolve_bundled_command_path(command) {
+    return Ok(path_to_string(&bundled));
+  }
+
   let output = background_command("where.exe")
     .arg(command)
     .output()
@@ -114,6 +118,28 @@ pub fn resolve_command_path(command: &str) -> Result<String, String> {
   }
 
   Err(format!("Missing dependency: {command}"))
+}
+
+fn resolve_bundled_command_path(command: &str) -> Option<PathBuf> {
+  let executable_name = if command.ends_with(".exe") {
+    command.to_string()
+  } else {
+    format!("{command}.exe")
+  };
+
+  let current_exe = std::env::current_exe().ok()?;
+  let candidates = [
+    current_exe.parent().map(|parent| parent.join(&executable_name)),
+    current_exe
+      .parent()
+      .and_then(|parent| parent.parent())
+      .map(|parent| parent.join("bin").join(&executable_name)),
+  ];
+
+  candidates
+    .into_iter()
+    .flatten()
+    .find(|candidate| candidate.is_file())
 }
 
 pub fn youtube_authentication_required(message: &str) -> bool {

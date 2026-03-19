@@ -86,12 +86,16 @@ This design keeps the UI lightweight while still allowing local filesystem acces
 
 ## Local Requirements
 
-Watermelon 2 depends on local media tools:
+End-user installers now bundle the required media tools:
 
 - `yt-dlp`
 - `ffmpeg`
+
+For local development and packaging on your own machine, you still need:
+
 - Rust toolchain
 - Visual Studio Build Tools for Tauri builds on Windows
+- local `yt-dlp` and `ffmpeg` installed so the build can stage them into the app bundle
 
 The project already includes a Windows helper script at `scripts\\with-vs-dev.cmd` so npm-based Tauri commands can run inside a proper MSVC environment.
 
