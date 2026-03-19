@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { clampNumber, formatTimecode } from '../lib/format'
+import { clampNumber } from '../lib/format'
 import type { ClipSelection } from '../types'
 
 type TimelineEditorProps = {
@@ -97,18 +97,6 @@ export function TimelineEditor({
 
   return (
     <section className="timeline-panel">
-      <div className="timeline-metrics">
-        <div>
-          <p className="eyebrow">Clip Window</p>
-          <h3>{formatTimecode(selectionWidth)}</h3>
-        </div>
-        <div className="timeline-readouts">
-          <span>IN {formatTimecode(selection.startMs)}</span>
-          <span>NOW {formatTimecode(currentTimeMs)}</span>
-          <span>OUT {formatTimecode(selection.endMs)}</span>
-        </div>
-      </div>
-
       <div className="timeline-pill-row">
         <div className="timeline-pill timeline-pill-start" style={{ left: ratio(selection.startMs, durationMs) }}>
           {compactLabel(selection.startMs)}

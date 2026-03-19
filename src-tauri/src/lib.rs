@@ -15,6 +15,11 @@ pub fn run() {
   let server_state = shared_state.clone();
 
   tauri::Builder::default()
+    .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
+      let launch_url = browser_entry_url();
+      let _ = emit_background_ready(app, &launch_url);
+      let _ = open_in_browser(&launch_url);
+    }))
     .manage(shared_state)
     .setup(move |app| {
       if cfg!(debug_assertions) {
